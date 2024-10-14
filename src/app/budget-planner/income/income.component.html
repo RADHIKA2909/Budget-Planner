@@ -65,7 +65,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let income of getFilteredIncomes()">
+                <tr *ngFor="let income of getIncomesForMonth()">
                     <td>{{ income.source }}</td>
                     <td>{{ income.amount }}</td>
                     <td>{{ income.investments }}</td>

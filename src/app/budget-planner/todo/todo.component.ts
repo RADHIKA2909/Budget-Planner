@@ -14,11 +14,6 @@ import { Router } from '@angular/router';
 export class TodoComponent {
   todoForm: any;
   selectedMonth: any;
-  expenses: { month: string, expenseAmount: number }[] = [
-    { month: 'January', expenseAmount: 1500 },
-    { month: 'February', expenseAmount: 2000 },
-    { month: 'March', expenseAmount: 1800 }
-  ];
   monthSelected: boolean = false;
   januaryExpense: any[] = [
     { expenseType: 'Recharge', expenseAmount: 1000 },
@@ -72,7 +67,6 @@ export class TodoComponent {
   onChangeExpense(event: any) {
     this.selectedMonth = event.target.value;
     this.monthSelected = true;
-    this.getFilteredExpenses();
   }
 
   getFilteredExpenses() {
@@ -95,31 +89,10 @@ export class TodoComponent {
 
   calculateTotalExpense(month: string): number {
     let totalExpense = 0;
-    for (const income of this.gettodoFormonth(month)) {
+    for (const income of this.getFilteredExpenses()) {
       totalExpense += income.expenseAmount;
     }
     return totalExpense;
-  }
-
-  gettodoFormonth(month: string): any[] {
-    switch (month) {
-      case 'January':
-        return this.januaryExpense;
-      case 'February':
-        return this.februaryExpense;
-      case 'March':
-        return this.marchExpense;
-      default:
-        return [];
-    }
-  }
-
-  onSave() {
-    if (this.todoForm.valid) {
-      const incomeData = this.todoForm.value;
-      this.todoForm.reset({ month: this.selectedMonth });
-      this.getFilteredExpenses();
-    }
   }
 
   saveForm() {

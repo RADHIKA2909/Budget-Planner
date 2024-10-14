@@ -2,7 +2,7 @@
 <div class="main-container">
     <div class="container">
         <h2>Transaction History</h2>
-        <form [formGroup]="todoForm" (ngSubmit)="onSubmitExpense()" class="input-form">
+        <form [formGroup]="todoForm"  class="input-form">
             <div class="form-group">
                 <select formControlName="month" id="month" class="form-control" (change)="onChangeExpense($event)">
                     <option value="" disabled>Select Month</option>

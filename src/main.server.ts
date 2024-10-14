@@ -5,3 +5,8 @@ import { config } from './app/app.config.server';
 const bootstrap = () => bootstrapApplication(AppComponent, config);
 
 export default bootstrap;
+
+
+//main.server.ts: Similar to main.ts, but for server-side rendering (SSR). It:
+// Uses bootstrapApplication to set up the app on the server-side.
+// Merges additional SSR-related configurations (config) with the default app configuration (appConfig).

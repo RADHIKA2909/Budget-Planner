@@ -25,3 +25,12 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class BudgetPlannerRoutingModule { }
+
+// BudgetPlannerModule and Its Routing (budget-planner.module.ts, budget-planner-routing.module.ts)
+
+// budget-planner-routing.module.ts:
+
+// Defines routes for components within the BudgetPlannerModule.
+// Routes include:
+// /login, /side-nav, /dashboard, /income, /expense, /todo, /history, /profile: Each path loads the corresponding component.
+// When the user navigates to any of these routes, Angular will replace the <router-outlet> in app.component.html with the requested component.

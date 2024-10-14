@@ -15,11 +15,6 @@ import { SideNavComponent } from '../side-nav/side-nav.component';
 export class HistoryComponent {
   todoForm: any;
   selectedMonth: string;
-  expenses: { month: string, expenseAmount: number }[] = [
-    { month: 'January', expenseAmount: 1500 },
-    { month: 'February', expenseAmount: 2000 },
-    { month: 'March', expenseAmount: 1800 }
-  ];
   monthSelected: boolean = false;
   januaryExpense: any[] = [
     { expenseType: 'Recharge', expenseAmount: 1000 },
@@ -46,18 +41,9 @@ export class HistoryComponent {
     });
   }
 
-  onSubmitExpense() {
-    if (this.todoForm.valid) {
-      const newExpense = this.todoForm.value;
-      this.getFilteredExpenses().push(newExpense);
-      this.todoForm.reset();
-    }
-  }
-
   onChangeExpense(event: any) {
     this.selectedMonth = event.target.value;
     this.monthSelected = true;
-    this.getFilteredExpenses();
   }
 
   getFilteredExpenses() {
@@ -75,17 +61,6 @@ export class HistoryComponent {
 
   calculateTotalExpense(month: string): number {
     return this.getFilteredExpenses().reduce((acc, curr) => acc + curr.expenseAmount, 0);
-  }
-
-  onSave() {
-    if (this.todoForm.valid) {
-      this.todoForm.reset({ month: this.selectedMonth });
-      this.getFilteredExpenses();
-    }
-  }
-
-  saveForm() {
-    console.log("Form saved!");
   }
 
   onBack() {

@@ -30,6 +30,8 @@ export class IncomeComponent {
   constructor(public fb: FormBuilder,public router:Router) { 
     const currentDate = new Date();
     this.selectedMonth = currentDate.toLocaleString('default', { month: 'long' });
+    //'default': ensuring the month name appears in the appropriate language for the user's region,
+    // { month: 'long' }): This tells the method to extract only the month part of the date, and to format it as the full name of the month (e.g., "January", "February", etc.). { month: 'short' }) will make "Jan", "Feb" etc.
   }
   ngOnInit(): void {
     this.incomeForm = this.fb.group({
@@ -43,19 +45,18 @@ export class IncomeComponent {
   onChange(event: any) {
     this.selectedMonth = event.target.value
     this.monthSelected=true;
-    this.getFilteredIncomes();
   }
 
   calculateTotalIncome(month: string): number {
     let totalIncome = 0;
-    for (const income of this.getIncomesForMonth(month)) {
+    for (const income of this.getIncomesForMonth()) {
       totalIncome += income.amount;
     }
     return totalIncome;
   }
 
-  getIncomesForMonth(month: string): any[] {
-    switch (month) {
+  getIncomesForMonth(): any[] {
+    switch (this.selectedMonth) {
       case 'January':
         return this.januaryIncomes;
       case 'February':
@@ -67,23 +68,7 @@ export class IncomeComponent {
     }
   }
 
-  getFilteredIncomes() {
-    let filteredIncomes: any[] = [];
-    switch (this.selectedMonth) {
-      case 'January':
-        filteredIncomes = [...this.januaryIncomes];
-        break;
-      case 'February':
-        filteredIncomes = [...this.februaryIncomes];
-        break;
-      case 'March':
-        filteredIncomes = [...this.marchIncomes];
-        break;
-      default:
-        break;
-    }
-    return filteredIncomes;
-  }
+  // We'll push user's entered data in the income data of that specific month
   onSubmit() {
     if (this.incomeForm.valid) {
       const newIncome = this.incomeForm.value;
@@ -101,7 +86,8 @@ export class IncomeComponent {
           break;
       }
       this.incomeForm.reset();
-      this.incomeForm.patchValue({ month: '', source: '', amount: '', investments: '' });
+      this.incomeForm.patchValue({ month: '', source: '', amount: '', investments: '' }); 
+      // patchValue() updates these form fields with '', just reset() will fill it will null and we won't get any placeholders after saving. If we don't even write this.incomeForm.reset() then also its fine since patchValue() is already resetting as required but its a good habit to reset() after submitting form so that's why added.
     }
   }
 

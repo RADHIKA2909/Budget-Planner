@@ -14,11 +14,6 @@ import { Router } from '@angular/router';
 export class ExpenseComponent {
   expenseForm: any;
   selectedMonth: string;
-  expenses: { month: string, expenseAmount: number }[] = [
-    { month: 'January', expenseAmount: 1500 },
-    { month: 'February', expenseAmount: 2000 },
-    { month: 'March', expenseAmount: 1800 }
-  ];
   monthSelected: boolean = false;
   januaryExpense: any[] = [
     { expenseType: 'Rent', expenseAmount: 1000 },
@@ -50,13 +45,13 @@ export class ExpenseComponent {
       const newExpense = this.expenseForm.value;
       this.getFilteredExpenses().push(newExpense);
       this.expenseForm.reset();
+      this.expenseForm.patchValue({ month: '', expenseType: '', expenseAmount: '' });
     }
   }
 
   onChangeExpense(event: any) {
     this.selectedMonth = event.target.value;
     this.monthSelected = true;
-    this.getFilteredExpenses();
   }
 
   getFilteredExpenses() {
@@ -74,13 +69,6 @@ export class ExpenseComponent {
 
   calculateTotalExpense(month: string): number {
     return this.getFilteredExpenses().reduce((acc, curr) => acc + curr.expenseAmount, 0);
-  }
-
-  onSave() {
-    if (this.expenseForm.valid) {
-      this.expenseForm.reset({ month: this.selectedMonth });
-      this.getFilteredExpenses();
-    }
   }
 
   saveForm() {

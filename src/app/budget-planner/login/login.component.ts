@@ -50,7 +50,8 @@ register() {
     setTimeout(() => {
       window.location.reload();
     }, 2000);
-    this.router.navigate(['/budget-planner/login']);
+    this.router.navigate(['/budget-planner/login']);   
+    // While registering, if values entered are correct then on form sumission after 2 secs, itll navigate to login page
   } else {
     this.snackBar.open('Please fill in all fields correctly!', 'Close', { duration: 3000 });
   }
